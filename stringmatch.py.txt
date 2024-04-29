@@ -1,0 +1,11 @@
+def string_matching(text, pattern):
+    return text.find(pattern)
+
+# Example usage:
+text = "ABABDABACDABABCABAB"
+pattern = "ABABCABAB"
+index = string_matching(text, pattern)
+if index != -1:
+    print("Pattern found at index:", index)
+else:
+    print("Pattern not found in the text.")

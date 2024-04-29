@@ -1,0 +1,34 @@
+import heapq
+
+def prim_mst(graph):
+    mst = []
+    visited = set()
+    start_node = next(iter(graph))
+    visited.add(start_node)
+    edges = [(weight, start_node, neighbor) for neighbor, weight in graph[start_node]]
+
+    heapq.heapify(edges)
+
+    while edges:
+        weight, u, v = heapq.heappop(edges)
+        if v not in visited:
+            visited.add(v)
+            mst.append((u, v, weight))
+            edges.extend((w, v, neighbor) for neighbor, w in graph[v] if neighbor not in visited)
+            heapq.heapify(edges)
+
+    return mst
+
+# Example usage:
+graph = {
+    'A': [('B', 5), ('C', 3)],
+    'B': [('A', 5), ('C', 2), ('D', 1)],
+    'C': [('A', 3), ('B', 2), ('D', 3)],
+    'D': [('B', 1), ('C', 3)]
+}
+
+mst = prim_mst(graph)
+print("Edges in the Minimum Spanning Tree:")
+for u, v, weight in mst:
+    print(f"{u} -- {v} == {weight}")
+

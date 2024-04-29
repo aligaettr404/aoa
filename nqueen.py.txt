@@ -1,0 +1,28 @@
+def is_safe(board, row, col, n):
+    for i in range(row):
+        if board[i] == col or abs(i - row) == abs(board[i] - col):
+            return False
+    return True
+
+def solve_n_queens(n):
+    def backtrack(row, board):
+        if row == n:
+            return [board[:]]
+        solutions = []
+        for col in range(n):
+            if is_safe(board, row, col, n):
+                board.append(col)
+                solutions.extend(backtrack(row + 1, board))
+                board.pop()
+        return solutions
+
+    return backtrack(0, [])
+
+# Example usage:
+n = 4
+solutions = solve_n_queens(n)
+for solution in solutions:
+    for row in solution:
+        print(' '.join('Q' if col == row else '.' for col in range(n)))
+    print()
+

@@ -1,0 +1,26 @@
+import heapq
+
+def dijkstra(graph, start):
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    pq = [(0, start)]
+    
+    while pq:
+        dist, node = heapq.heappop(pq)
+        for neighbor, weight in graph.get(node, {}).items():
+            alt = dist + weight
+            if alt < distances.get(neighbor, float('inf')):
+                distances[neighbor] = alt
+                heapq.heappush(pq, (alt, neighbor))
+    
+    return distances
+
+# Example usage:
+graph = {
+    'A': {'B': 5, 'C': 3},
+    'B': {'C': 2, 'D': 1},
+    'C': {'D': 3}
+}
+start_node = 'A'
+print("Shortest distances from node", start_node, ":", dijkstra(graph, start_node))
+

@@ -1,0 +1,20 @@
+def graph_coloring(graph):
+    colors = {}
+    for node in graph:
+        neighbors_colors = {colors[neighbor] for neighbor in graph[node] if neighbor in colors}
+        colors[node] = next(color for color in range(len(graph)) if color not in neighbors_colors)
+    return colors
+
+# Example usage:
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+colors = graph_coloring(graph)
+print("Node Colors:")
+for node, color in colors.items():
+    print(f"{node}: {color}")
+
